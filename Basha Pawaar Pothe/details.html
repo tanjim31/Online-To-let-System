@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basha Pawaar Pothe</title>
+    <link rel="stylesheet" href="Assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assests/css/style.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="Assests/icons/font/bootstrap-icons.css">
+    <!-- for responsive -->
+    <link rel="stylesheet" href="Assests/css/responsive.css">
+
+    <style>
+       
+      
+        
+        .card{
+         
+          background-color: #fff;
+          width: 40%;
+          border: 1px solid #ddd;
+          box-shadow: 4px 6px 8px gray;
+          border-radius: 5px;
+          padding-left: 8px;
+          margin-left: 28%;
+   
+          
+
+          
+        }
+
+       p{
+          
+          margin-left: 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          padding: 5px;
+        } 
+
+        #confirmationMessage{
+          margin-top: 10px;
+          margin-left: 18px;
+          padding: 5px;
+          background-color: #fff;
+          width: 40%;
+          font-weight: bold;
+          margin-left: 29%;
+
+        }
+         
+    
+  </style>
+  
+</head>
+<body>
+
+    <!-- Navbar-Start -->
+
+    <nav class="navbar navbar-expand-lg"  style="background-color: #ccd9ff">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">BashaPawaarPothe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="teenantLoginView.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="aboutTeenant.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="contactTeenant.html">Contact Us</a>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-person-check"></i> My Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ddArea">
+                        <a class="dropdown-item" href="teenantProfile.html">Profile</a>
+                        <a class="dropdown-item" href="login.html">Logout</a>
+                    </div>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <!-- Navbar-End -->
+
+
+    <!-- Detaills-Start -->
+
+    <div id="details-container" class="mt-2 ms-3">
+     
+    </div>
+
+    <div id="confirmationMessage"></div>
+
+
+    <!-- Detaills-End -->
+
+
+
+
+
+<script>
+
+
+//This is the main
+
+var bookedProperties = JSON.parse(localStorage.getItem('bookedProperties')) || {};
+
+document.addEventListener('DOMContentLoaded', function () {
+    const confirmationMessage = document.getElementById('confirmationMessage');
+
+    const userEmailTeenant = localStorage.getItem('userEmail');
+    const postIdNo = localStorage.getItem('postid');
+    console.log(userEmailTeenant);
+    console.log(postIdNo);
+
+    fetch('https://localhost:7195/api/ConfirmCancelMsg/GetConfirmCancelMsg')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(confirmCancelMsgs => {
+            const relevantMsg = confirmCancelMsgs.find(msg => msg.postNo == postIdNo && msg.teenantMail == userEmailTeenant);
+
+            if (relevantMsg) {
+                confirmationMessage.innerText = relevantMsg.confirmMsg || "Sorry!! You are Cancelled for this rent";
+                confirmationMessage.style.fontSize = "20px";
+                confirmationMessage.style.boxShadow = "4px 4px 8px gray";
+                confirmationMessage.style.borderRadius = "5px";
+
+                // Disable the "Book for Rent" button for this card
+                var buttonId = `bookButton-${postIdNo}`;
+                var bookButton = document.getElementById(buttonId);
+                console.log(bookButton);
+
+                if (bookButton) {
+                    bookButton.disabled = true;
+                }
+            } else {
+                const propertyConfirmedForOtherTenant = confirmCancelMsgs.find(msg => msg.postNo == postIdNo && msg.confirmMsg);
+
+                if (propertyConfirmedForOtherTenant) {
+                    confirmationMessage.innerText = "Sorry!! This rent is already confirmed to another tenant from owner.";
+                    confirmationMessage.style.fontSize = "20px";
+                    confirmationMessage.style.boxShadow = "4px 4px 8px gray";
+                    confirmationMessage.style.borderRadius = "5px";
+
+                }
+            }
+
+            // Fetch details after checking confirmation messages
+            fetch('https://localhost:7195/api/DetailsCard/GetDetaills')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    data.forEach(function (detail) {
+                        if (detail.id == postIdNo) {
+                            var card = document.createElement('div');
+                            card.className = 'col-md-12 mb-2';
+                            card.innerHTML = `
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div><img src="data:image/png;base64,${detail.imageField}" width=70%" height="200px" alt="House Image"></div>
+                                        <h5 class="card-title mt-2">Category: ${detail.category}</h5>
+                                        <h5 class="card-title">Home Type: ${detail.homeType}</h5>
+                                        <h5 class="card-title">Address : ${detail.address}</h5>
+                                        <h5 class="card-title">Road Number : ${detail.review}</h5>
+                                        <h5 class="card-title">Rent Date : ${detail.date}</h5>
+                                        <h5 class="card-title">Price : ${detail.price}</h5>
+                                        <h5 class="card-title">Floor : ${detail.floor}</h5>
+                                        <h5 class="card-title">Bed Room : ${detail.bedroom}</h5>
+                                        <h5 class="card-title">Bath Room : ${detail.bathroom}</h5>
+                                        <h5 class="card-title">Contact Number : ${detail.contactNumber}</h5>
+                                        <h5 class="card-title">Description : ${detail.description}</h5>
+                                        <h5 class="card-title">Owner Email : ${detail.userEmail}</h5>
+                                        <button class="btn btn-primary col-md-3 mt-1" type="submit" id="bookButton-${detail.id}">Book for Rent</button>
+                                    </div>
+                                </div>
+                            `;
+
+                            document.getElementById('details-container').appendChild(card);
+
+                            var buttonId = `bookButton-${detail.id}`;
+                            var bookButton = document.getElementById(buttonId);
+
+                            if (bookButton) {
+                                checkIfPropertyBooked(detail.userEmail, detail.id, userEmailTeenant, bookButton);
+
+                                // Add a check to disable the button only if there is a confirmation message
+                                if (confirmationMessage.innerText.trim() === "Sorry!! This rent is already confirmed to another tenant from the owner."  || confirmationMessage.innerText.trim() === "You are Confirmed for this rent") {
+                                    bookButton.disabled = true;
+                                }
+                                
+                                // if (confirmationMessage.innerText.trim() === "You are Confirmed for this rent" ) {
+                                //     bookButton.disabled = true;
+                                // }
+                                bookButton.addEventListener('click', function () {
+                                    submitForm(detail.userEmail, detail.id, userEmailTeenant, bookButton);
+                                });
+                            }
+                        }
+                    });
+                });
+        });
+});
+
+
+
+// Check booked status after the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    // var bookedProperties = JSON.parse(localStorage.getItem('bookedProperties')) || {};
+
+    // Iterate through the stored properties and update the button state
+    Object.keys(bookedProperties).forEach(postId => {
+        var buttonId = `bookButton-${postId}`;
+        var bookButton = document.getElementById(buttonId);
+
+        if (bookButton) {
+            bookButton.disabled = true;
+            bookButton.textContent = 'Booked';
+        }
+    });
+});
+
+
+function checkIfPropertyBooked(userEmail, postId, userEmail2, bookButton) {
+    // Check if the property is already booked by the user
+    if (bookedProperties[`${userEmail2}-${postId}`]) {
+        // Property is already booked by the user
+        bookButton.disabled = true;
+        bookButton.textContent = 'Booked';
+    } else {
+        // Make a GET request to check if the property is booked by the user
+        fetch(`https://localhost:7195/api/TeenantBooked2/CheckIfPropertyBooked2?userEmail=${userEmail}&userEmail2=${userEmail2}&postId=${postId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(isBooked => {
+                if (isBooked) {
+                    // Property is already booked by the user
+                    bookButton.disabled = true;
+                    bookButton.textContent = 'Booked';
+
+                    // Update bookedProperties object
+                    bookedProperties[`${userEmail2}-${postId}`] = true;
+                    localStorage.setItem('bookedProperties', JSON.stringify(bookedProperties));
+                }
+            })
+            .catch(error => {
+                console.error('Error checking if property is booked:', error);
+            });
+    }
+}
+
+
+
+function submitForm(userEmail, postId, userEmailTeenant, bookButton) {
+    var bookingData = {
+        postId: postId,
+        teenantEmail: userEmailTeenant,
+        ownerEmail: userEmail
+    };
+
+    console.log(userEmail);
+
+
+
+    fetch('https://localhost:7195/api/TeenantBooked2/PostTeenantBooked2', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bookingData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('Booking successful:', data);
+
+            // Disable the button and change text to "Booked"
+            if (bookButton) {
+                bookButton.disabled = true;
+                bookButton.textContent = 'Booked';
+            }
+
+            // Update bookedProperties object
+            bookedProperties[`${userEmailTeenant}-${postId}`] = true;
+            localStorage.setItem('bookedProperties', JSON.stringify(bookedProperties));
+
+            alert('Property booked successfully by: ' + userEmailTeenant);
+        })
+        .catch(error => {
+            console.error('Error booking property:', error);
+        });
+}
+
+
+
+</script>
+    
+
+
+
+    <script src="Assests/js/bootstrap.bundle.js"></script>
+    <script src="Assests/js/main.js"></script>
+
+
+
+      
+  
+</body>
+</html>

@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap');
+
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  
+}
+
+a{
+    text-decoration: none;
+}
+
+/* Navbar-start */
+
+.navbar .navbar-brand{
+    width:300px;
+}
+
+/* Navbar-End */
+
+/* ContactForm-Start */
+
+.contact-area{
+    width:100%;
+    padding:80px 100px;
+   
+}
+
+.contact-area .contact-form{
+    background-color: #d8e4ef;
+    border: 1px solid #d8e4ef;
+    padding: 50px 50px;
+    border-radius: 8px;
+}
+.contact-area .contact-form button{
+    background-color: #337ab7;
+    border: 1px solid  #337ab7;
+}
+
+
+/* ContactForm-End */
+
+/* Background Image Start */
+
+.bg-img-area{
+    width:100%;
+    height:80vh;
+    background-image: url('../image/bgpic.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bg-img-area .over-layer{
+    width:100%;
+    height:100%;
+    background-color: black;
+    opacity: 0.7;
+    position: absolute;
+}
+/* .bg-img-area .find-home{
+    text-align: center;
+    font-weight: bold;
+} */
+.bg-img-area .layer-info{
+    position:absolute;
+    color:white;
+    text-align: center;
+
+   
+}
+.bg-img-area .layer-info .home-search{
+    padding-top: 20px;
+}
+.bg-img-area .layer-info .home-search input{
+    width: 20rem;
+}
+
+/* Background Image End */
+
+/* Card-Start */
+
+
+
+.container .row  .card-img-top {
+    object-fit: cover; /* Ensure the image covers the entire card */
+    height: 200px; 
+}
+
+/* Card-End */
+
+
+/* Register Start */
+
+.register-area{
+    text-align: center;
+}
+.register-area button{
+    margin-top: 20px;
+    width: 14rem;
+    background-color:  #337ab7;
+    border: 1px solid #337ab7;
+}
+
+/* Register End */
+
+
+/* Login Start */
+
+.login-area{
+    text-align: center;
+}
+.login-area button{
+    margin-top: 20px;
+    width: 14rem;
+    background-color: #337ab7;
+    border: 1px solid  #337ab7;
+}
+
+/* Login End */
+
+/* Teenant Register-Form Start */
+.teenant-registerform-area{
+    text-align: center;
+}
+
+.register-areas{
+    width:100%;
+    padding:40px 100px;
+   
+}
+
+.register-areas .register-form{
+    background-color: #d8e4ef;
+    /* border: 1px solid #f7f7f7; */
+    padding: 50px 50px;
+    border-radius: 8px;
+}
+.register-areas .register-form button{
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.msg{
+    float: right;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.msg2{
+    float: left;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Teenant Register-Form End */
+
+
+/* Owner Register-Form Start */
+.owner-register-form-area{
+    text-align: center;
+}
+
+
+/* Owner Register-Form End */
+
+/* Owner Login View Start */
+
+.nav .nav-item a{
+   color:black;
+}
+
+#profileContent{
+    text-align: center;
+}
+
+
+
+
+/* Owner Login View End */
+
+
+/* Owner Login View Edit */
+
+.form-box{
+   box-shadow: 8px 8px 12px gray;
+}
+.edit-form{
+    margin-top: 10px;
+    border: 1px solid black;
+    padding: 20px;
+    box-shadow: red;
+}
+
+.edit-form label{
+    font-weight: bold;
+}
+
+.edit-form input, textarea {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 20%;
+}
+
+.edit-form .hidden{
+    display: none;
+}
+
+/* Owner Login View Edit End */
+
+
+/* Footer Start */
+
+.footer{
+    width:100%;
+    padding-top: 20px;
+    color: #fff;
+    background: #333;
+   
+}
+.full-footer{
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+
+}
+.full-footer .left-footer{
+    /* margin-top:50px; */
+    /* width:390px; */
+    width: 33%;
+ 
+
+}
+.full-footer .left-footer p{
+    font-size: 15px;
+}
+.full-footer .middle-footer{
+    margin-top:20px;
+    width: 25%;
+    margin-left: 50px;
+}
+.full-footer .middle-footer p{
+    font-size: 15px;
+}
+.full-footer .right-footer{
+  
+    width: 33%;
+    display: flex;
+
+}
+
+
+.full-footer .right-footer p{
+    font-size: 15px;
+}
+.full-footer .right-footer .left-right h3{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.full-footer .right-footer .left-right ul{
+ list-style: none;
+
+}
+.full-footer .right-footer .left-right ul li{
+    padding-top: 10px;
+}
+.full-footer .right-footer .right-right{
+    margin-top: 47px;
+}
+.full-footer .right-footer .right-right ul{
+    list-style: none;
+   
+}
+.full-footer .right-footer .right-right ul li{
+    padding-top: 10px;
+}
+
+.down-footer{
+    width: 100%;
+    text-align: center;
+    margin-top:60px;
+    margin-right: 20px;
+    padding-bottom: 10px;
+    font-size: 15px;
+    color: #fff;
+    background: #333;
+}
+
+
+/* Footer End */
+
+/* About Start */
+.about-container{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #f5f6fa;
+    height:100%;
+}
+.about-container .about-left{
+    width:40%;
+    margin-top: 3%;
+    margin-left: 5%;
+    height: 70vh;
+    padding: 10px;
+    /* background-color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 2%; */
+   
+ 
+
+}
+.about-container .about-left p{
+   margin-top: 7% ;
+}
+
+.about-container .about-right{
+    width:45%;
+    margin-top: 3%;
+    margin-right: 3%;
+    height: 70vh;
+
+}
+
+
+
+
+
+/* About End */
+
+
+
+
+
+

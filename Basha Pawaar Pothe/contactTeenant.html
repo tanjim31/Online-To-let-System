@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="Assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assests/css/style.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="Assests/icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="Assests/css/responsive.css">
+  
+</head>
+<body>
+
+    <!-- Navbar-Start -->
+
+    <nav class="navbar navbar-expand-lg"  style="background-color: #ccd9ff">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">BashaPawaarPothe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="teenantLoginView.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="aboutTeenant.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="contactTeenant.html">Contact Us</a>
+              </li>
+            </ul>
+           
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="bi bi-person-check"></i> My Profile
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ddArea">
+                      <a class="dropdown-item" href="teenantProfile.html">Profile</a>
+                      <a class="dropdown-item" href="login.html">Logout</a>
+                  </div>
+              </li>
+          </ul>
+           
+          </div>
+        </div>
+      </nav>
+
+    <!-- Navbar-End -->
+
+    <!-- Contact Area Start -->
+    <div class="contact-area">
+        <div class="contact-form">
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">Your First Name</label>
+                  <input type="text" class="form-control" id="firstName" value="" required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">Your Last Name</label>
+                    <input type="text" class="form-control" id="lastName" value="" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                <div class="col-md-6">
+                  <label for="phoneNumber" class="form-label">Your Phone Number</label>
+                  <input type="text" class="form-control" id="phoneNumber" value="" placeholder="" required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="email" value="" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea name="" id="message" cols="30" rows="5" class="form-control" required></textarea>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit" onclick="submitForm()">Send Message</button>
+                </div>
+              </form>
+        </div>
+    </div>
+
+
+    <!-- Contact Area End -->
+    
+
+
+    <script src="Assests/js/bootstrap.bundle.js"></script>
+    <script src="Assests/js/main.js"></script>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+
+
+
+function submitForm() {
+    event.preventDefault();
+    console.log('Button clicked!');
+
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var phoneNumber = document.getElementById('phoneNumber').value;
+    var email = document.getElementById('email').value;
+    var message = document.getElementById('message').value;
+
+    // Check if any required field is empty
+    if (!firstName || !lastName || !phoneNumber || !email || !message) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    // Create a FormData object
+    var formData = new FormData();
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('phoneNumber', phoneNumber);
+    formData.append('email', email);
+    formData.append('message', message);
+
+    // Convert FormData to JSON
+    var jsonData = {};
+    for (var pair of formData.entries()) {
+        jsonData[pair[0]] = pair[1];
+    }
+
+    // Log the JSON data
+    console.log('JSON data:', jsonData);
+
+    // API Endpoint and Request Configuration:
+    const apiUrl = 'https://localhost:7195/api/ContactMessage/PostMessage';
+
+    // Send data to the API
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+    })
+    .then(response => {   //Handle Response
+        if (response.ok) {
+            // Handle success, e.g., display a success message
+            alert('Message sent successfully');
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text();
+    })
+    .catch(error => {  //Handle Errors
+        // Handle errors, e.g., display an error message
+        console.error('Error:', error);
+    });
+}
+
+
+    </script>
+</body>
+</html>

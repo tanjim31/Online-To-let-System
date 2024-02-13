@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basha Pawaar Pothe</title>
+    <link rel="stylesheet" href="Assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assests/css/style.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="Assests/icons/font/bootstrap-icons.css">
+    <!-- for responsive -->
+    <link rel="stylesheet" href="Assests/css/responsive.css">
+    <style>
+
+      .logout{
+       
+        margin-left: 46%;
+      }
+
+      .teenantList{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-left: 6%;
+    
+    
+      }
+
+      .ownerList{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-left: 6%;
+      }
+
+      .allPropertyList{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-left: 6%;
+      }
+      .bookedPropertyList{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-left: 6%;
+      }
+
+      .card {
+        width: 20rem;
+        border: 1px solid rgb(224, 215, 215);
+        box-shadow: 4px 6px 8px gray;
+        padding: 10px;
+        text-align: left;
+        overflow: hidden; 
+        font-size: 18px;
+        /* min-height: 70%; */
+   
+    }
+    .card2{
+        width: 20rem;
+        border: 1px solid rgb(224, 215, 215);
+        box-shadow: 4px 6px 8px gray;
+        padding: 10px;
+        text-align: left;
+        overflow: hidden; 
+        font-size: 18px;
+    }
+
+    .card3{
+        width: 20rem;
+        border: 1px solid rgb(224, 215, 215);
+        box-shadow: 4px 6px 8px gray;
+        padding: 10px;
+        text-align: left;
+        overflow: hidden; 
+        font-size: 18px;
+    }
+     
+
+    </style>
+  
+</head>
+<body>
+
+    <!-- Navbar-Start -->
+
+    <!-- <nav class="navbar navbar-expand-lg"  style="background-color: #ccd9ff">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">BashaPawaarPothe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="adminLoginView.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="contact.html">Contact Us</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                  <a class="nav-link active" href="login.html"><i class="bi bi-door-closed-fill"></i>  Logout</a>
+                </li>
+            </ul>
+           
+          </div>
+        </div>
+      </nav> -->
+
+    <!-- Navbar-End -->
+
+   
+
+
+      <ul class="nav nav-tabs p-2" id="myTabs" style="background-color: #ccd9ff">
+
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showAllTeenant()" id="viewTeenant">Show All Teenant</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showAllOwner()" id="viewOwner">Show All Owner</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="showAllProperty()"  id="viewAllProperty">Show All Property</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="showAllBookedProperty()" id="viewAllBookedProperty">Show All Booked Property</a>
+        </li>
+
+        <li class="nav-item logout">
+            <a class="nav-link" href="login.html"> <i class="bi bi-door-closed-fill"></i> Logout</a>
+        </li>
+
+    </ul>
+      
+      
+   
+
+    <!-- This is for Show All Teenant -->
+      <div class="teenantList mt-4">
+
+      </div>
+
+    <!-- This is for Show All Teenant -->
+       <div class="ownerList">
+
+       </div>
+
+    <!-- This is for Show All Teenant -->
+        <div class="allPropertyList">
+
+        </div>
+
+        
+    <!-- This is for Show All Teenant -->
+        <div class="bookedPropertyList">
+
+        </div>
+
+  
+
+
+
+<script> 
+
+//---------------Show All Teenant Start---------------------------- //
+
+function showAllTeenant() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://localhost:7195/api/TeenantRegestration/GetTeenant', true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+
+                // Handle the data and display it in the teenantList div
+                var teenantListDiv = document.querySelector('.teenantList');
+                var ownerListDiv = document.querySelector('.ownerList');
+                var allPropertyListDiv = document.querySelector('.allPropertyList');
+                var allPropertyBookedListDiv= document.querySelector('.bookedPropertyList')
+   
+
+                teenantListDiv.innerHTML = ''; // Clear previous content
+                ownerListDiv.innerHTML = ''; // Clear owner content
+                allPropertyListDiv.innerHTML= '';
+                allPropertyBookedListDiv.innerHTML= '';
+          
+
+                data.forEach(teenant => {
+                    // Create a card div for each teenant
+                    var cardDiv = document.createElement('div');
+                    cardDiv.className = 'card';
+
+                    if (teenant.id !== null && teenant.id !== undefined) {
+                        cardDiv.setAttribute('data-id', teenant.id.toString());
+                    }
+
+                    // Display relevant information (you can customize this based on your model)
+                    cardDiv.innerHTML = '<p>ID: ' + teenant.id + '</p>' +
+                        '<p>Name: ' + teenant.fullName + '</p>' +
+                        '<p>Email: ' + teenant.email + '</p>' +
+                        '<p>Phone Number: ' + teenant.phoneNumber + '</p>' +
+                        '<p>Address: ' + teenant.address + '</p>' +
+                        '<button class="btn btn-danger deleteBtn">Delete Teenant</button>';
+
+                    // Append the card div to the teenantList div
+                    teenantListDiv.appendChild(cardDiv);
+                });
+            }
+        };
+
+        xhr.send();
+    }
+
+// Call the showAllTeenant function when the "Show All Teenant" link is clicked
+// document.getElementById('viewTeenant').addEventListener('click', function (event) {
+//     event.preventDefault(); // Prevent the default link behavior
+//     showAllTeenant();
+// });
+
+//---------------Show All Teenant End---------------------------- //
+
+
+
+//This is for Teenant Delete
+
+document.addEventListener('click', function (event) {
+  // Check if the clicked element is a delete button
+  if (event.target.classList.contains('deleteBtn')) {
+    var cardDiv = event.target.closest('.card');
+    if (cardDiv) {
+      var teenantId = cardDiv.getAttribute('data-id');
+      console.log(teenantId);
+      deleteTeenant(teenantId);
+    }
+  }
+});
+
+
+function deleteTeenant(id) {
+  // Ask for confirmation before deleting
+  var confirmDelete = window.confirm("Are you sure, you want to delete this teenant?");
+
+  if (confirmDelete) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', 'https://localhost:7195/api/TeenantRegestration/DeleteTeenant?id=' + id, true);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          // If deletion is successful, remove the corresponding card
+          var cardToRemove = document.querySelector('.card[data-id="' + id + '"]');
+          if (cardToRemove) {
+            cardToRemove.remove();
+            console.log('Teenant removed successfully.');
+          } else {
+            console.error('Card not found for ID ' + id);
+          }
+        } else {
+          console.error('Error deleting teenant with ID ' + id);
+        }
+      }
+    };
+
+    xhr.send();
+  } else {
+    console.log('Deletion canceled.');
+  }
+}
+
+
+
+//---------------  Teenant Delete End---------------------------- //
+
+
+
+//---------------Show All Owner Start---------------------------- //
+
+function showAllOwner() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://localhost:7195/api/OwnerRegestration/GetOwner', true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+
+                // Handle the data and display it in the ownerList div
+                var teenantListDiv = document.querySelector('.teenantList');
+                var ownerListDiv = document.querySelector('.ownerList');
+                var allPropertyListDiv = document.querySelector('.allPropertyList');
+                var allPropertyBookedListDiv= document.querySelector('.bookedPropertyList')
+     
+
+                teenantListDiv.innerHTML = ''; // Clear previous content
+                ownerListDiv.innerHTML = ''; // Clear owner content
+                allPropertyListDiv.innerHTML= '';
+                allPropertyBookedListDiv.innerHTML= '';
+
+                data.forEach(owner => {
+                    // Create a card div for each owner
+                    var cardDiv = document.createElement('div');
+                    cardDiv.className = 'card';
+
+                    if (owner.id !== null && owner.id !== undefined) {
+                        cardDiv.setAttribute('data-idowner', owner.id.toString());
+                    }
+
+                    // Display relevant information (you can customize this based on your model)
+                    cardDiv.innerHTML = '<p>ID: ' + owner.id + '</p>' +
+                        '<p>Name: ' + owner.fullName + '</p>' +
+                        '<p>Email: ' + owner.email + '</p>' +
+                        '<p>Phone Number: ' + owner.phoneNumber + '</p>' +
+                        '<p>Address: ' + owner.address + '</p>' +
+                        '<button class="btn btn-danger deleteBtn2">Delete Owner</button>';
+
+                    // Append the card div to the ownerList div
+                    ownerListDiv.appendChild(cardDiv);
+                });
+            }
+        };
+
+        xhr.send();
+    }
+
+// Call the showAllTeenant function when the "Show All Teenant" link is clicked
+// document.getElementById('viewOwner').addEventListener('click', function (event) {
+//     // event.preventDefault(); // Prevent the default link behavior
+//     showAllOwner();
+// });
+
+//---------------Show All Owner End---------------------------- //
+
+//This is for Owner Delete
+
+document.addEventListener('click', function (event) {
+  // Check if the clicked element is a delete button
+  if (event.target.classList.contains('deleteBtn2')) {
+    var cardDiv = event.target.closest('.card');
+    if (cardDiv) {
+      var ownerId = cardDiv.getAttribute('data-idowner');
+      console.log(ownerId);
+      deleteOwner(ownerId);
+    }
+  }
+});
+
+function deleteOwner(id) {
+  // Ask for confirmation before deleting
+  var confirmDelete = window.confirm("Are you sure, you want to delete this teenant?");
+
+  if (confirmDelete) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', 'https://localhost:7195/api/OwnerRegestration/DeleteOwner?id=' + id, true);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          // If deletion is successful, remove the corresponding card
+          var cardToRemove = document.querySelector('.card[data-idowner="' + id + '"]');
+          if (cardToRemove) {
+            cardToRemove.remove();
+            console.log('Owner removed successfully.');
+          } else {
+            console.error('Card not found for ID ' + id);
+          }
+        } else {
+          console.error('Error deleting teenant with ID ' + id);
+        }
+      }
+    };
+
+    xhr.send();
+  } else {
+    console.log('Deletion canceled.');
+  }
+}
+
+//--------------- Owner Delete End---------------------------- //
+
+
+//---------------Show All Property Start---------------------------- //
+
+function showAllProperty() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://localhost:7195/api/DetailsCard/GetDetaills', true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+
+                // Handle the data and display it in the teenantList div
+                var teenantListDiv = document.querySelector('.teenantList');
+                var ownerListDiv = document.querySelector('.ownerList');
+                var allPropertyListDiv = document.querySelector('.allPropertyList');
+                var allPropertyBookedListDiv= document.querySelector('.bookedPropertyList')
+
+
+                teenantListDiv.innerHTML = ''; // Clear previous content
+                ownerListDiv.innerHTML = ''; // Clear owner content
+                allPropertyListDiv.innerHTML= '';
+                allPropertyBookedListDiv.innerHTML= '';
+
+                data.forEach(property => {
+                    // Create a card div for each teenant
+                    var cardDiv = document.createElement('div');
+                    cardDiv.className = 'card2';
+
+                    // if (teenant.id !== null && teenant.id !== undefined) {
+                    //     cardDiv.setAttribute('data-id', teenant.id.toString());
+                    // }
+
+                    // Display relevant information (you can customize this based on your model)
+                    cardDiv.innerHTML =  
+                        `<div ><img src="data:image/png;base64,${property.imageField}" width="100%" height="200px" alt="House Image"> </div>` +
+                        '<p class="mt-3">Property ID: ' + property.id + '</p>' +
+                        '<p>Category: ' + property.category + '</p>' +
+                        '<p>Home Type: ' + property.homeType + '</p>' +
+                        '<p>Address: ' + property.address + '</p>' +
+                        '<p>Date: ' + property.date + '</p>' +
+                        '<p>Price: ' + property.price + '</p>' +
+                        '<p>Floor: ' + property.floor + '</p>' +
+                        '<p>Bedroom: ' + property.bedroom + '</p>' +
+                        '<p>Bathroom: ' + property.bathroom + '</p>' +
+                        '<p>Contact Number: ' + property.contactNumber + '</p>' +
+                        '<p>Description: ' + property.description + '</p>' +
+                        '<p>Owner Email: ' + property.userEmail + '</p>' 
+                        // `<div><img src="data:image/png;base64,${property.imageField}" width="200px" height="150px" alt="House Image"> </div>`
+
+
+                     ;
+
+                    // Append the card div to the teenantList div
+                    allPropertyListDiv.appendChild(cardDiv);
+                });
+            }
+        };
+
+        xhr.send();
+}
+
+//---------------Show All Property End---------------------------- //
+
+
+
+//---------------Show All Booked Property Start---------------------------- //
+
+function showAllBookedProperty() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://localhost:7195/api/TeenantBooked2/GetTeenantBooked2', true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+
+                // Handle the data and display it in the teenantList div
+                var teenantListDiv = document.querySelector('.teenantList');
+                var ownerListDiv = document.querySelector('.ownerList');
+                var allPropertyListDiv = document.querySelector('.allPropertyList');
+                var allPropertyBookedListDiv= document.querySelector('.bookedPropertyList')
+
+                teenantListDiv.innerHTML = ''; // Clear previous content
+                ownerListDiv.innerHTML = ''; // Clear owner content
+                allPropertyListDiv.innerHTML= '';
+                allPropertyBookedListDiv.innerHTML= '';
+          
+
+                data.forEach(booked => {
+                    // Create a card div for each teenant
+                    var cardDiv = document.createElement('div');
+                    cardDiv.className = 'card3';
+
+                    // if (teenant.id !== null && teenant.id !== undefined) {
+                    //     cardDiv.setAttribute('data-id', teenant.id.toString());
+                    // }
+
+                    // Display relevant information (you can customize this based on your model)
+                    cardDiv.innerHTML = '<p>ID: ' + booked.id + '</p>' +
+                        '<p>Property ID: ' + booked.postId + '</p>' +
+                        '<p>Teenant Email: ' + booked.teenantEmail + '</p>' +
+                        '<p>Owner Email: ' + booked.ownerEmail + '</p>' 
+                      ;
+
+                    // Append the card div to the teenantList div
+                    allPropertyBookedListDiv.appendChild(cardDiv);
+                });
+            }
+        };
+
+        xhr.send();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //Table
+  // function showAllTeenant() {
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open('GET', 'https://localhost:7195/api/TeenantRegestration/GetTeenant', true);
+
+  //   xhr.onreadystatechange = function () {
+  //     if (xhr.readyState == 4 && xhr.status == 200) {
+  //       var data = JSON.parse(xhr.responseText);
+
+  //       // Handle the data and display it in the teenantList div as a table
+  //       var teenantListDiv = document.querySelector('.teenantList');
+  //       teenantListDiv.innerHTML = ''; // Clear previous content
+
+  //       // Create a table
+  //       var table = document.createElement('table');
+  //       table.border = '1';
+  //       table.width= '100%';
+
+  //       // Create headers
+  //       var headers = ['ID', 'Name', 'Email', 'Phone Number', 'Address'];
+  //       var headerRow = document.createElement('tr');
+    
+
+  //       headers.forEach(header => {
+  //         var th = document.createElement('th');
+  //         th.textContent = header;
+  //         th.style.textAlign= 'center';
+  //         headerRow.appendChild(th);
+  //       });
+
+  //       table.appendChild(headerRow);
+
+  //       // Populate table with data
+  //       data.forEach(teenant => {
+  //         var row = document.createElement('tr');
+  //         row.style.border = '1px solid black'; // Border for each row
+  //         row.style.textAlign='center';
+  //       //   row.style.padding='20px';
+
+  //         // Display relevant information in each cell
+  //         row.innerHTML = '<td style="border: 1px solid black;">' + teenant.id + '</td>' +
+  //           '<td style="border: 1px solid black;">' + teenant.fullName + '</td>' +
+  //           '<td style="border: 1px solid black;">' + teenant.email + '</td>' +
+  //           '<td style="border: 1px solid black;">' + teenant.phoneNumber + '</td>' +
+  //           '<td style="border: 1px solid black;">' + teenant.address + '</td>';
+
+  //         table.appendChild(row);
+  //       });
+
+  //       // Append the table to the teenantList div
+  //       teenantListDiv.appendChild(table);
+  //     }
+  //   };
+
+  //   xhr.send();
+  // }
+
+  // // Call the showAllTeenant function when the "Show All Teenant" link is clicked
+  // document.getElementById('viewPropertyLink').addEventListener('click', function (event) {
+  //   event.preventDefault(); // Prevent the default link behavior
+  //   showAllTeenant();
+  // });
+
+
+
+// This is for Show All Owner
+
+
+
+
+</script>
+
+
+    <script src="Assests/js/bootstrap.bundle.js"></script>
+    <script src="Assests/js/main.js"></script>
+</body>
+</html>

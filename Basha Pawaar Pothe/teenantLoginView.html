@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basha Pawaar Pothe</title>
+    <link rel="stylesheet" href="Assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assests/css/style.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="Assests/icons/font/bootstrap-icons.css">
+    <!-- for responsive -->
+    <link rel="stylesheet" href="Assests/css/responsive.css">
+    <style>
+
+   .card-container {
+        display: flex;
+        flex-wrap: wrap;
+      
+        gap: 40px;
+       
+    }
+
+    .card {
+        width: 18rem;
+        border: 1px solid rgb(224, 215, 215);
+        box-shadow: 4px 6px 8px gray;
+        padding: 10px;
+        text-align: left;
+        overflow: hidden; 
+        font-size: 18px;
+        height:100%;
+     
+        transition: transform 0.6s ease-in-out;
+      
+      
+    }
+
+    .card:hover{
+      transform: scale(1.05); 
+    }
+
+    .textContent{
+      min-height: 160px;
+      
+    }
+
+
+    .detailsbutton{
+      background-color: #0d6efd;
+      border: solid #0d6efd;
+      width:100%;
+
+      border-radius: 5px;
+      text-align: center;
+      color: white;
+      font-size: 1rem;
+      min-height: 10%;
+  
+    
+    }
+
+    .showpostrent{
+      text-align: center;
+      margin-top: 2%;
+    }
+
+    .images{
+      width: 100%;
+      max-height: 170px;
+      min-height: 100px;
+    }
+
+   
+
+  </style>
+  
+</head>
+<body>
+
+    <!-- Navbar-Start -->
+
+    <nav class="navbar navbar-expand-lg"  style="background-color: #ccd9ff">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">BashaPawaarPothe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="teenantLoginView.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="aboutTeenant.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="contactTeenant.html">Contact Us</a>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="bi bi-person-check"></i> My Profile
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ddArea">
+                      <a class="dropdown-item" href="teenantProfile.html">Profile</a>
+                      <a class="dropdown-item" href="login.html">Logout</a>
+                  </div>
+              </li>
+            </ul>
+           
+          </div>
+        </div>
+      </nav>
+
+    <!-- Navbar-End -->
+
+    <!-- Background image-Start -->
+      <div class="bg-img-area">
+        <div class="over-layer"></div>
+        <div class="layer-info">
+            <div class="find-home">
+                <h1>Find Home</h1>
+            </div>
+            <div class="home-search">
+    
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search by address" aria-label="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+      
+      </div>
+    <!-- Background image-End -->
+
+
+
+    <!-- Card-End -->
+
+    <!-- Details Card-Start -->
+
+    <div class="showpostrent">
+      <h2>Property For Rent</h2>
+    </div>
+
+    <div class="container card-container mt-5">
+
+    </div>
+
+    <div class="button-container text-center mt-3">
+      
+    </div>
+ 
+
+    <!-- Details Card-End -->
+
+    <footer class="footer mt-5" >
+      <div class="full-footer">
+          <div class="left-footer">
+              <h3>Basha Pawaar Pothe</h3>
+              <p>A Online To-let System. We are giving our teenants the best and suitable services for home rent and our owners to find best teenants for their rent property</p>
+              <p>Connect with Social Media</p>
+          </div>
+          <div class="middle-footer">
+              <h3>Contact Us</h3>
+              <p> <i class="bi bi-telephone-fill"></i> +880 94230 74637 (Overseas)</p>
+              <p> <i class="bi bi-envelope-fill"></i>  bashapawaarpothe@gmail.com </p>
+              <p> About </p>
+              <p> How it works </p>
+          </div>
+          
+          <div class="right-footer">
+           
+              <div class="left-right">
+                  <h3>Important Links</h3>
+                  <ul>
+                      <li>Book</li>
+                      <li>Survey</li>
+                      <li>Privacy Policy</li>
+                      <li>Terms and Condition</li>
+                  </ul>
+              </div>
+              <div class="right-right">
+                  <ul>
+                      <li>FAQ</li>
+                      <li>Trust</li>
+                      <li>Contact Center</li>
+                      <li>Support Center</li>
+                  </ul>
+              </div>
+          </div>
+         
+      </div>
+      <div class="down-footer">
+          <p>© Copyright © 2023 Basha Pawaar Pothe. All rights reserved. Developed by <span>Rahat Ahmed Tanjim</span></p>
+      </div>
+
+
+
+  </footer>
+
+  
+
+
+<script>
+//main
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://localhost:7195/api/DetailsCard/GetDetaills', true);
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            var data = JSON.parse(xhr.responseText);
+
+            var cardContainer = document.querySelector('.card-container');
+
+            data.forEach(function (detail, index) {
+                var card = document.createElement('div');
+                card.className = 'card';
+
+                // Display Image
+                var image = document.createElement('img');
+                image.className='images';
+                if (detail.imageField instanceof Uint8Array) {
+                    image.src = 'data:image/jpeg;base64,' + btoa(String.fromCharCode.apply(null, detail.imageField));
+                } else if (typeof detail.imageField === 'string') {
+                    image.src = 'data:image/jpeg;base64,' + detail.imageField;
+                } else {
+                    console.error('Unsupported image format:', typeof detail.imageField);
+                    // Handle the case where the image format is not supported
+                }
+                image.alt = 'Property Image';
+                card.appendChild(image);
+
+                // Display other details
+                var fieldsContainer = document.createElement('div');
+                fieldsContainer.className = 'textContent';
+                card.appendChild(fieldsContainer);
+
+                var visibleFields = 0;
+                for (var prop in detail) {
+                    if (prop !== 'id' && prop !== 'imageField' && visibleFields < 3) {
+                        var detailItem = document.createElement('p');
+                        detailItem.textContent = prop + ': ' + detail[prop];
+                        fieldsContainer.appendChild(detailItem);
+                        visibleFields++;
+                    }
+                }
+
+                // Add "View Details" button
+                var buttonContainer = document.createElement('div');
+                buttonContainer.className = 'view-button-container';
+
+                var viewButton = document.createElement('button');
+                viewButton.className = 'detailsbutton';
+                viewButton.textContent = 'View Details';
+                viewButton.addEventListener('click', function () {
+                    localStorage.setItem('postid', detail.id);
+                    window.location.href = './details.html';
+                });
+
+                buttonContainer.appendChild(viewButton);
+                card.appendChild(buttonContainer);
+
+                cardContainer.appendChild(card);
+            });
+
+            // Handle search button click
+            var searchButton = document.querySelector('.btn-primary');
+            searchButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                var searchInput = document.querySelector('.form-control').value.toLowerCase();
+
+                cardContainer.innerHTML = ''; // Clear existing cards
+
+                data.forEach(function (detail) {
+                    if (detail.address.toLowerCase().includes(searchInput)) {
+                        var card = document.createElement('div');
+                        card.className = 'card';
+
+                        // Display Image
+                        var image = document.createElement('img');
+                        image.className='images';
+                        if (detail.imageField instanceof Uint8Array) {
+                            image.src = 'data:image/jpeg;base64,' + btoa(String.fromCharCode.apply(null, detail.imageField));
+                        } else if (typeof detail.imageField === 'string') {
+                            image.src = 'data:image/jpeg;base64,' + detail.imageField;
+                        } else {
+                            console.error('Unsupported image format:', typeof detail.imageField);
+                            // Handle the case where the image format is not supported
+                        }
+                        image.alt = 'Property Image';
+                        card.appendChild(image);
+
+                        // Display other details
+                        var fieldsContainer = document.createElement('div');
+                        fieldsContainer.className = 'textContent';
+                        card.appendChild(fieldsContainer);
+
+                        var visibleFields = 0;
+                        for (var prop in detail) {
+                            if (prop !== 'id' && prop !== 'imageField' && visibleFields < 3) {
+                                var detailItem = document.createElement('p');
+                                detailItem.textContent = prop + ': ' + detail[prop];
+                                fieldsContainer.appendChild(detailItem);
+                                visibleFields++;
+                            }
+                        }
+
+                        // Add "View Details" button
+                        var buttonContainer = document.createElement('div');
+                        buttonContainer.className = 'view-button-container';
+
+                        var viewButton = document.createElement('button');
+                        viewButton.className = 'detailsbutton';
+                        viewButton.textContent = 'View Details';
+                        viewButton.addEventListener('click', function () {
+                            localStorage.setItem('postid', detail.id);
+                            window.location.href = './details.html';
+                        });
+
+                        buttonContainer.appendChild(viewButton);
+                        card.appendChild(buttonContainer);
+
+                        cardContainer.appendChild(card);
+                    }
+                });
+            });
+        } else {
+            console.error('Error fetching data:', xhr.statusText);
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error('Request failed');
+    };
+
+    xhr.send();
+});
+
+</script>
+
+
+
+    
+
+
+    <script src="Assests/js/bootstrap.bundle.js"></script>
+    <script src="Assests/js/main.js"></script>
+
+
+
+      
+  
+</body>
+</html>

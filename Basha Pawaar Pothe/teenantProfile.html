@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basha Pawaar Pothe</title>
+    <link rel="stylesheet" href="Assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assests/css/style.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="Assests/icons/font/bootstrap-icons.css">
+    <!-- for responsive -->
+    <link rel="stylesheet" href="Assests/css/responsive.css">
+    <style>
+
+    
+
+    .card {
+        width: 18rem;
+        border: 1px solid rgb(224, 215, 215);
+        box-shadow: 4px 6px 8px gray;
+        padding: 10px;
+        text-align: left;
+        overflow: hidden; 
+        font-size: 18px;
+        min-height: 70%;
+        transition: transform 0.6s ease-in-out;
+        margin-top: 50px;
+        margin-left: 24%;
+        text-align: center;
+        min-width: 50%;
+    
+     
+    }
+
+    input{
+        min-width: 50%;
+    }
+
+  </style>
+  
+</head>
+<body>
+
+    <!-- Navbar-Start -->
+
+    <nav class="navbar navbar-expand-lg"  style="background-color: #ccd9ff">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">BashaPawaarPothe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="teenantLoginView.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="contactTeenant.html">Contact Us</a>
+              </li>
+            </ul>
+
+          
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="bi bi-person-check"></i> My Profile
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ddArea">
+                      <a class="dropdown-item" href="teenantProfile.html">Profile</a>
+                      <a class="dropdown-item" href="login.html">Logout</a>
+                  </div>
+              </li>
+            </ul>
+           
+          </div>
+        </div>
+      </nav>
+
+    <!-- Navbar-End -->
+
+
+    <div id="tenantInfoContainer"></div>
+
+
+
+<script>
+
+
+
+function editProperty(profileId) {
+    // Hide all other edit forms
+    document.querySelectorAll('.edit-form').forEach(form => form.style.display = 'none');
+    
+    // Show the edit form for the clicked property
+    const editForm = document.getElementById(`editForm${profileId}`);
+    if (editForm) {
+        editForm.style.display = 'block';
+    }
+
+       // new part
+       // Save initial values of the fields
+       const formFields = editForm.querySelectorAll('[id^="edit"]');
+        formFields.forEach(field => {
+            field.dataset.initialValue = field.value;
+        });
+}
+
+
+
+function updateProperty(propertyId) {
+    // event.preventDefault();
+
+    // Gather the updated information from the form
+    const updatedFullName = document.getElementById(`editFullName${propertyId}`).value;
+    const updatedEmail = document.getElementById(`editEmail${propertyId}`).value;
+    const updatedPassword = document.getElementById(`editPassword${propertyId}`).value;
+    const updatedPhoneNumber = document.getElementById(`editPhoneNumber${propertyId}`).value;
+    const updatedAddress = document.getElementById(`editAddress${propertyId}`).value;
+
+    // Update the apiUrl variable to your specific endpoint for updating properties
+    const apiUrl = `https://localhost:7195/api/TeenantRegestration/UpdateTeenant?id=${propertyId}`;
+
+    // Create an object with the updated data
+    const updatedData = {
+        fullName: updatedFullName,
+        email: updatedEmail,
+        password: updatedPassword,
+        phoneNumber: updatedPhoneNumber,
+        address: updatedAddress,
+    };
+
+    // Make the PUT request with JSON data
+    fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+    })
+    .then(response => {
+        if (response.ok) {
+            //alert('Profile Updated successfully');
+            // Optionally refresh the displayed properties or perform other actions
+        } 
+        
+      
+
+        else {
+            if (response.status === 400) {
+                //alert('Error updating profile. Please check your data and try again.');
+            } else {
+                // alert('Unexpected error. Please try again later.');
+            }
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    })
+    .catch(error => {
+        // alert('Error updating profile. Please try again!!!');
+        console.error('Error:', error);
+    });
+}
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the container element
+    var tenantInfoContainer = document.getElementById('tenantInfoContainer');
+
+    // Fetch specific tenant information
+    let mailProfile = localStorage.getItem('userEmail');
+    var xhrProfile = new XMLHttpRequest();
+    xhrProfile.open('GET', `https://localhost:7195/api/TeenantRegestration/GetTeenantByEmail?teenantmail=${encodeURIComponent(mailProfile)}`, true);
+
+    xhrProfile.onload = function () {
+        if (xhrProfile.status >= 200 && xhrProfile.status < 300) {
+            var profileDataArray = JSON.parse(xhrProfile.responseText);
+
+            console.log('Profile Data:', profileDataArray);
+
+            // Check if the array has at least one object
+            if (profileDataArray && profileDataArray.length > 0) {
+                var profileData = profileDataArray[0];
+
+                // Check if the required properties exist in the profileData
+                if (profileData && profileData.fullName && profileData.email && profileData.password && profileData.phoneNumber && profileData.address) {
+                    // Create a card container
+                    var cardContainer = document.createElement('div');
+                    cardContainer.className = 'card';
+
+                    // Create a container for the fields
+                    var fieldsContainer = document.createElement('div');
+                    fieldsContainer.className = 'textContent';
+
+                    // Display tenant information in the fields container
+                    fieldsContainer.innerHTML = `
+                                                <h3> My Profile </h3> <hr>
+                                                <p style="display: none;">ID: ${profileData.id}</p>
+                                                <p>Name: ${profileData.fullName}</p>
+                                                <p>Email: ${profileData.email}</p>
+                                                <p>Password: ${profileData.password}</p>
+                                                <p>Phone Number: ${profileData.phoneNumber}</p>
+                                                <p>Address: ${profileData.address}</p>
+                                                <button class="btn btn-primary" onclick="editProperty(${profileData.id})">Update Profile</button>
+
+
+                                                
+                                                    <!-- Form for editing -->
+                                                    <div class="form-box">
+                                                    <form id="editForm${profileData.id}" class="edit-form" style="display: none;">
+                                                    
+                                                        <label for="editFullName${profileData.id}">Full Name:</label>
+                                                        <input type="text" id="editFullName${profileData.id}" value="${profileData.fullName}" required> <br>
+                                                        
+                                                        <label for="editEmail${profileData.id}">Email:</label>
+                                                        <input type="text" id="editEmail${profileData.id}" value="${profileData.email}" required> <br>
+
+                                                        <label for="editPassword${profileData.id}">Password:</label>
+                                                        <input type="text" id="editPassword${profileData.id}" value="${profileData.password}" required> <br>
+
+                                                        <label for="editPhoneNumber${profileData.id}">Phone Number:</label>
+                                                        <input type="text" id="editPhoneNumber${profileData.id}" value="${profileData.phoneNumber}" required> <br>
+
+                                                        <label for="editAddress${profileData.id}">Address:</label>
+                                                        <input type="text" id="editAddress${profileData.id}" value="${profileData.address}" required> <br>
+
+                                         
+                                                        <!-- Add other input fields for each property attribute -->
+
+                                                        <button class="btn btn-success mt-3" onclick="updateProperty(${profileData.id})">Update</button>
+                                                        <button class="btn btn-secondary mt-3" onclick="cancelEdit(${profileData.id})">Cancel</button>
+                                                    </form>
+                                                    </div>
+                                                 
+                                                 `;
+                                                 
+
+                    // Append the fields container to the card container
+                    cardContainer.appendChild(fieldsContainer);
+
+                    // Append the card container to the tenant information container
+                    tenantInfoContainer.appendChild(cardContainer);
+                } else {
+                    console.error('Missing or undefined properties in profileData');
+                }
+            } else {
+                console.error('Empty array or no objects in profileDataArray');
+            }
+        } else {
+            console.error('Error fetching profile data:', xhrProfile.statusText);
+        }
+    };
+
+    xhrProfile.onerror = function () {
+        console.error('Request failed for profile data');
+    };
+
+    // Send the request for the specific tenant profile
+    xhrProfile.send();
+
+
+});
+
+
+</script>
+
+
+
+    
+
+
+    <script src="Assests/js/bootstrap.bundle.js"></script>
+    <script src="Assests/js/main.js"></script>
+
+
+
+      
+  
+</body>
+</html>

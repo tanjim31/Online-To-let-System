@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basha Pawaar Pothe</title>
+    <link rel="stylesheet" href="Assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assests/css/style.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="Assests/icons/font/bootstrap-icons.css">
+    <!-- for responsive -->
+    <link rel="stylesheet" href="Assests/css/responsive.css">
+  
+</head>
+<body>
+
+    <!-- Navbar-Start -->
+
+    <nav class="navbar navbar-expand-lg"  style="background-color: #ccd9ff">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">BashaPawaarPothe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="contact.html">Contact Us</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="register.html"><i class="bi bi-person-fill"></i> Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="login.html"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                </li>
+              </ul>
+           
+          </div>
+        </div>
+      </nav>
+
+    <!-- Navbar-End -->
+
+    <!-- owner-RegisterForm-Start -->
+
+      <div class="teenant-registerform-area mt-5">
+        <h3>Owner Login</h3>
+      </div>
+      <div class="register-areas">
+        <div class="register-form">
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-12">
+                  <label for="Email" class="form-label">Your Email</label>
+                  <input type="text" class="form-control" id="Email" value="" required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="Password" class="form-label">Your Password</label>
+                    <input type="password" class="form-control" id="Password" value="" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+             
+                <div class="col-md-12">
+                  <button class="btn btn-primary col-md-12" type="button" onclick="login()">Login</button>
+                </div>
+              </form>
+        </div>
+        <div class="msg">
+            <p>Login as a <a href="teenantLoginform.html"> Teenant?</a></p>
+        </div>
+    </div>
+     
+
+    <!-- Owner-RegisterForm-End -->
+
+
+    <script src="Assests/js/bootstrap.bundle.js"></script>
+    <script src="Assests/js/main.js"></script>
+    <script>
+
+(() => {
+      'use strict'
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+
+    function login() {
+      var Email = document.getElementById('Email').value;
+      var Password = document.getElementById('Password').value;
+
+      // API Endpoint and Request Configuration:
+      const apiUrl = 'https://localhost:7195/api/OwnerRegestration/OwnerLogin';
+
+      // Send data to the API for login
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Email: Email,
+          Password: Password
+        }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Check if the login was successful
+          if (data.message === 'Login successful') {
+            // Store email in local storage
+            localStorage.setItem('userEmail', Email);
+            alert(Email);
+            // alert('Login Succeessful');
+            location.href="./ownerLoginView.html";
+            // location.href=`./ownerLoginView.html?Email=${data.userEmail}`;
+            // location.href = `./tutor_own.html?email=${loggedInTutor.tutorEmail}`;
+            // console.log('Login successful');
+            // Redirect to the dashboard or perform other actions
+          } else {
+            console.error('Login failed:', data.message);
+            // Display an error message to the user
+            alert('Login failed. Please check your email and password.');
+          }
+        })
+        .catch(error => {
+          // Handle other errors
+          console.error('Error:', error);
+        });
+    }
+
+
+
+
+
+
+    </script>
+</body>
+</html>

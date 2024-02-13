@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basha Pawaar Pothe</title>
+    <link rel="stylesheet" href="Assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Assests/css/style.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="Assests/icons/font/bootstrap-icons.css">
+    <!-- for responsive -->
+    <link rel="stylesheet" href="Assests/css/responsive.css">
+    <style>
+
+      .card-container {
+          max-width: 600px; /* Adjust the maximum width as per your preference */
+          margin: 0 auto; /* Center the container horizontally */
+
+          
+        }
+
+      .property-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); */
+        box-shadow: 4px 6px 8px gray;
+  
+      }
+    
+      .property-card h3 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+    
+      .property-card div {
+        margin-bottom: 8px;
+      }
+    
+      .property-card strong {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+    </style>
+  
+</head>
+<body>
+
+    <!-- Navbar-Start -->
+
+    <nav class="navbar navbar-expand-lg"  style="background-color: #ccd9ff">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">BashaPawaarPothe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="ownerLoginView.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="aboutOwner.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="contactOwner.html">Contact Us</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- <li class="nav-item">
+                  <a class="nav-link active" href="register.html"><i class="bi bi-person-fill"></i> Register</a>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link active" href="login.html"><i class="bi bi-door-closed-fill"></i>  Logout</a>
+                </li>
+            </ul>
+           
+          </div>
+        </div>
+      </nav>
+
+    <!-- Navbar-End -->
+
+    <!-- Owner-Start -->
+
+
+      <ul class="nav nav-tabs mt-4" id="myTabs">
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="showContent('profile')" id="viewProfile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="showContent('addProperty')" >Add Property</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="showContent('viewProperty')" id="viewPropertyLink">View Property</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#" onclick="showContent('bookedProperty')">Booked Property</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="showContent('bookedProperty')" onclick="loadBookedProperties()">Booked Property</a>
+        </li>
+      </ul>
+      
+      
+      <!-- This is for Show owner Profile -->
+      <div class="card-container">
+
+        <div id="profileContent" class="content mt-4">
+
+          <div id="profileList" class="mt-4"></div>
+  
+        </div>
+      </div>
+
+  
+      <!-- This is for Add Property -->
+
+      <div id="addPropertyContent" class="content mt-4" style="display: none;">
+        <!-- Add Property content goes here -->
+        <div class="owner-register-form-area mt-5">
+            <h3>Add Property</h3>
+          </div>
+          <div class="register-areas">
+            <div class="register-form">
+              <form class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+                  <div class="col-md-12">
+                    <label for="category" class="form-label">Category</label>
+                    <!-- <input type="text" class="form-control" id="category" value="" required> -->
+                    <select class="form-select" id="category" name="category" required>
+                      <option value="" disabled selected>Select Category</option>
+                      <option value="Rent for family">Rent for family</option>
+                      <option value="Rent for male bachelor">Rent for male bachelor</option>
+                      <option value="Rent for female bachelor">Rent for female bachelor</option>
+                    </select>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                      <label for="homeType" class="form-label">Home Type</label>
+                      <!-- <input type="text" class="form-control" id="homeType" value="" required> -->
+                      <select class="form-select" id="homeType" name="homeType" required>
+                        <option value="" disabled selected>Select home type</option>
+                        <option value="family">family</option>
+                        <option value="Male bachelor">Male bachelor</option>
+                        <option value="Female bachelor">Female bachelor</option>
+                      </select>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                    </div>
+                  <div class="col-md-12">
+                    <label for="address" class="form-label">Address</label>
+                    <!-- <input type="text" class="form-control" id="address" value="" placeholder="" required> -->
+                    <select class="form-select" id="address" name="address" required>
+                      <option value="" disabled selected>Select your address</option>
+                      <option value="Azimpur">Azimpur</option>
+                      <option value="Lalbagh">Lalbagh</option>
+                      <option value="Mirpur">Mirpur</option>
+                      <option value="Uttara">Uttara</option>
+                      <option value="Shamoly">Shamoly</option>
+                    </select>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                
+                  <div class="col-md-12">
+                      <label for="price" class="form-label">Price</label>
+                      <input type="text" class="form-control" id="price" value="" required>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="floor" class="form-label">Floor</label>
+                    <!-- <input type="text" class="form-control" id="floor" value="" required> -->
+                    <select class="form-select" id="floor" name="floor" required>
+                      <option value="" disabled selected>Select floor</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="bedroom" class="form-label">Bedroom</label>
+                    <!-- <input type="text" class="form-control" id="bedroom" value="" required> -->
+                    <select class="form-select" id="bedroom" name="bedroom" required>
+                      <option value="" disabled selected>Select bedroom</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="5">6</option>
+                    </select>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="bathroom" class="form-label">Bathroom</label>
+                    <!-- <input type="text" class="form-control" id="bathroom" value="" required> -->
+                    <select class="form-select" id="bathroom" name="bathroom" required>
+                      <option value="" disabled selected>Select bathroom</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="5">6</option>
+                    </select>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="contactNumber" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="contactNumber" value="" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="description" class="form-label">Description</label>
+                    <!-- <input type="text" class="form-control" id="description" value="" required> -->
+                    <textarea class="form-control" id="description" required></textarea>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="review" class="form-label">Road Number</label>
+                    <input type="text" class="form-control" id="review" value="" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div>
+               <div class="col-md-12">
+                    <label for="image" class="form-label">Upload Your Picture</label>
+                    <input class="form-control" type="file" id="image">
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div> 
+               
+                <!-- <div class="col-md-12">
+                    <label for="imageField" class="form-label">Image Field</label>
+                    <input type="text" class="form-control" id="imageField" value="" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                </div> -->
+
+               
+                  <div class="col-md-12">
+                    <button class="btn btn-primary col-md-12" type="submit" onclick="submitForm()">Add</button>
+                  </div>
+                </form>
+          </div>
+      </div>
+      </div>
+      
+
+      <!-- This is for View,, Update,, Delete Property -->
+      <div id="viewPropertyContent" class="content mt-4" style="display: none;">
+        <!-- View Property content goes here -->
+         <!-- View Property Information -->
+        <div id="propertyList"></div>
+      </div>
+      
+
+      
+      <div id="bookedPropertyContent" class="content mt-4" style="display: none;">
+        <!-- Booked Property content goes here -->
+        
+      </div>
+
+
+
+
+  <!-- //Js Start //-->
+
+  <script> 
+
+        function showContent(tabId) {
+          // Hide all content divs
+          document.querySelectorAll('.content').forEach(function(el) {
+            el.style.display = 'none';
+          });
+      
+          // Show the selected content div
+          document.getElementById(tabId + 'Content').style.display = 'block';
+        }
+
+
+        //This is portion is fore form 
+        (() => {    
+       'use strict'
+
+       // Fetch all the forms we want to apply custom Bootstrap validation styles to
+       const forms = document.querySelectorAll('.needs-validation')
+
+       // Loop over them and prevent submission
+       Array.from(forms).forEach(form => {
+           form.addEventListener('submit', event => {
+               if (!form.checkValidity()) {
+                   event.preventDefault()
+                   event.stopPropagation()
+               }
+
+               form.classList.add('was-validated')
+           }, false)
+       })
+   })()
+
+
+
+
+//For Profile
+
+function fetchProfileData() {
+          // Retrieve the logged-in user's email from local storage
+          const loggedInUserEmail2 = localStorage.getItem('userEmail');
+
+          if (!loggedInUserEmail2) {
+              console.error('User email not found in local storage.');
+              return;
+          }
+        
+          
+        let mailProfile=localStorage.getItem('userEmail');
+        // alert('User Email is : '+ mailProfile);
+        const apiUrl = `https://localhost:7195/api/OwnerRegestration/GetOwnerByEmail?ownermail=${encodeURIComponent(mailProfile)}`;
+        //const apiUrl = 'https://localhost:7195/api/DetailsCard/GetDetaills'; // Adjust the API endpoint
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Call function to display property data
+                displayProfileData(data);
+            })
+            .catch(error => {
+                console.error('Error fetching property data:', error);
+            });
+    }
+
+    // Function to dynamically display property data
+    function displayProfileData(propertyData) {
+        const profileListDiv = document.getElementById('profileList'); //this is from main content 
+
+        // Clear existing content
+        profileListDiv.innerHTML = '';
+
+        // Loop through the property data and create HTML elements
+        propertyData.forEach(property => {
+            const profileDiv = document.createElement('div');
+            profileDiv.classList.add('property-card');
+           
+            profileDiv.innerHTML = `
+                  <div> <h3> Owner Profile </h3></div>
+                  <div><strong>Full Name:</strong> ${property.fullName}</div>
+                  <div><strong>User Email:</strong> ${property.email}</div>
+                  <div><strong>Phone Number:</strong> ${property.phoneNumber}</div>
+                  <div><strong>Address:</strong> ${property.address}</div>
+           
+          `;
+
+
+// if (property.imageField) {
+//     // Assuming the imageField is a base64-encoded string, you can create an image element
+//     propertyDiv.innerHTML += `<img src="data:image/png;base64,${property.imageField}" alt="Property Image">`;
+// }
+
+
+          profileListDiv.appendChild(profileDiv);
+        });
+    }
+
+      
+    document.getElementById('viewProfile').addEventListener('click', function () {
+      fetchProfileData();
+    });
+
+
+
+
+//For post property
+
+function submitForm() {
+          event.preventDefault(); // Prevent the default form submission behavior
+           console.log('Button clicked!');
+           var category = document.getElementById('category').value;
+           var homeType = document.getElementById('homeType').value;
+           var address = document.getElementById('address').value;
+           var date = document.getElementById('date').value;
+           var price = document.getElementById('price').value;
+           var floor = document.getElementById('floor').value;
+           var bedroom = document.getElementById('bedroom').value;
+           var bathroom = document.getElementById('bathroom').value;
+           var contactNumber = document.getElementById('contactNumber').value;
+           var description = document.getElementById('description').value;
+           var review = document.getElementById('review').value;
+           var image = document.getElementById('image').files[0];
+          // var imageInput = document.getElementById('image');
+          // var image = imageInput.files[0];
+            // Retrieve email from local storage
+           var userEmail = localStorage.getItem('userEmail');
+          //var imageField = document.getElementById('image').value;
+
+           // Create a FormData object
+           var formData = new FormData(); //A FormData object is created
+           formData.append('category', category);  //key,values pair
+           formData.append('homeType', homeType);
+           formData.append('address', address);
+           formData.append('date', date);
+           formData.append('price', price);
+           formData.append('floor', floor);
+           formData.append('bedroom', bedroom);
+           formData.append('bathroom', bathroom);
+           formData.append('contactNumber', contactNumber);
+           formData.append('description', description);
+           formData.append('review', review);
+           formData.append('image', image);
+           formData.append('userEmail', userEmail); // Append the userEmail to the form data
+          //  formData.append('image', image);
+          //  formData.append('imageField', imageField.files[0]);
+
+
+           // Convert FormData to JSON
+           var jsonData = {};
+           for (var pair of formData.entries()) {
+               jsonData[pair[0]] = pair[1];
+           }
+
+           // Log the JSON data
+           console.log('JSON data:', jsonData);
+
+           // API Endpoint and Request Configuration:
+           const apiUrl = 'https://localhost:7195/api/DetailsCard/PostDetails';
+
+           // Send data to the API
+           fetch(apiUrl, {
+               method: 'POST',
+              //  headers: {
+              //      'Content-Type': 'application/json', //data being sent is in JSON format
+              //     // 'Content-Type': 'multipart/form-data',
+              //  },
+              //  body: JSON.stringify(jsonData),
+               body: formData,
+
+           })
+           .then(response => {   //Handle Response
+               if (response.ok) {
+                   // Handle success, e.g., display a success message
+                   alert('Property Added successfully')
+                   //console.log('Property Added successfully');
+               } else {
+                   throw new Error(`HTTP error! Status: ${response.status}`);
+               }
+                return response.text();
+            
+               
+           });
+        
+       }
+
+
+
+
+
+//For View,, Update and Delete
+
+function fetchPropertyData() {
+          // Retrieve the logged-in user's email from local storage
+          const loggedInUserEmail = localStorage.getItem('userEmail');
+
+          if (!loggedInUserEmail) {
+              console.error('User email not found in local storage.');
+              return;
+          }
+        
+          
+        let mailll=localStorage.getItem('userEmail');
+        // alert('User Email is : '+ mailll);
+        const apiUrl = `https://localhost:7195/api/DetailsCard/GetDetailsByEmail?detailsEmail=${encodeURIComponent(mailll)}`;
+        //const apiUrl = 'https://localhost:7195/api/DetailsCard/GetDetaills'; // Adjust the API endpoint
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Call function to display property data
+                displayPropertyData(data);
+            })
+            .catch(error => {
+                console.error('Error fetching property data:', error);
+            });
+    }
+
+    // Function to dynamically display property data
+  function displayPropertyData(propertyData) {
+        const propertyListDiv = document.getElementById('propertyList'); //this is from main content 
+
+        // Clear existing content
+        propertyListDiv.innerHTML = '';
+
+        // Loop through the property data and create HTML elements
+        propertyData.forEach(property => {
+            const propertyDiv = document.createElement('div');
+           
+            propertyDiv.innerHTML = `
+              <div class="property-card">
+                  <div><strong>Post No :</strong> ${property.id}</div> 
+                  <div><strong>Category :</strong> ${property.category}</div>
+                  <div><strong>Home Type :</strong> ${property.homeType}</div>
+                  <div><strong>Address :</strong> ${property.address}</div>
+                  <div><strong>Date :</strong> ${property.date}</div>
+                  <div><strong>Price :</strong> ${property.price}</div>
+                  <div><strong>Floor :</strong> ${property.floor}</div>
+                  <div><strong>Bedroom :</strong> ${property.bedroom}</div>
+                  <div><strong>Bathroom :</strong> ${property.bathroom}</div>
+                  <div><strong>Contact Number :</strong> ${property.contactNumber}</div>
+                  <div><strong>Description :</strong> ${property.description}</div>
+                  <div><strong>Road Number :</strong> ${property.review}</div>
+                  <div><strong>User Email :</strong> ${property.userEmail}</div>
+                  <div><strong>House Picture :</strong> <img src="data:image/png;base64,${property.imageField}" width="100px" height="70px" alt="House Image"></div>
+
+                  
+                  
+                  <!-- Edit and Delete buttons -->
+                  <button class="btn btn-primary" onclick="editProperty(${property.id})">Edit</button>
+                  <button class="btn btn-danger" onclick="deleteProperty(${property.id})">Delete</button>
+
+                  <!-- Form for editing -->
+                  <div class="form-box">
+                  <form id="editForm${property.id}" class="edit-form" style="display: none;">
+                   
+                      <label for="editCategory${property.id}">Category:</label>
+                      <input type="text" id="editCategory${property.id}" value="${property.category}" required> <br>
+                    
+                      <label for="editHomeType${property.id}">Home Type:</label>
+                      <input type="text" id="editHomeType${property.id}" value="${property.homeType}" required> <br>
+
+                      <label for="editAddress${property.id}">Address:</label>
+                      <input type="text" id="editAddress${property.id}" value="${property.address}" required> <br>
+
+                      <label for="editDate${property.id}">Date:</label>
+                      <input type="text" id="editDate${property.id}" value="${property.date}" required> <br>
+
+                      <label for="editPrice${property.id}">Price:</label>
+                      <input type="text" id="editPrice${property.id}" value="${property.price}" required> <br>
+
+                      <label for="editFloor${property.id}">Floor:</label>
+                      <input type="text" id="editFloor${property.id}" value="${property.floor}" required> <br>
+
+                      <label for="editBedroom${property.id}">Bedroom:</label>
+                      <input type="text" id="editBedroom${property.id}" value="${property.bedroom}" required> <br>
+
+                      <label for="editBathroom${property.id}">Bathroom:</label>
+                      <input type="text" id="editBathroom${property.id}" value="${property.bathroom}" required> <br>
+
+                      <label for="editContactNumber${property.id}">Contact Number:</label>
+                      <input type="text" id="editContactNumber${property.id}" value="${property.contactNumber}" required> <br>
+
+                      <label for="editDescription${property.id}">Description:</label>
+                      <textarea id="editDescription${property.id}" required>${property.description}</textarea><br>
+
+
+                      <label for="editReview${property.id}">Road Number:</label>
+                      <input type="text" id="editReview${property.id}" value="${property.review}" required> <br>
+
+                      <label for="editPicture${property.id}">House Picture:</label>
+                      <input type="file" id="editPicture${property.id}" value="${property.image}" required> <br>
+
+
+
+                      <label for="editUserEmail${property.id}" class="hidden">User Email:</label>
+                      <input type="text" id="editUserEmail${property.id}" value="${property.userEmail}" class="hidden" required> <br>
+
+
+                      <!-- Add other input fields for each property attribute -->
+
+                      <button class="btn btn-success" onclick="updateProperty(${property.id})">Update</button>
+                      <button class="btn btn-secondary" onclick="cancelEdit(${property.id})">Cancel</button>
+                  </form>
+                  </div>
+
+
+
+                
+              </div>
+            
+          `;
+
+            propertyListDiv.appendChild(propertyDiv);
+        });
+    }
+
+      
+    document.getElementById('viewPropertyLink').addEventListener('click', function () {
+        fetchPropertyData();
+    });
+
+
+
+function editProperty(propertyId) {
+    // Hide all other edit forms
+    document.querySelectorAll('.edit-form').forEach(form => form.style.display = 'none');
+    
+    // Show the edit form for the clicked property
+    const editForm = document.getElementById(`editForm${propertyId}`);
+    if (editForm) {
+        editForm.style.display = 'block';
+    }
+
+       // new part
+       // Save initial values of the fields
+       const formFields = editForm.querySelectorAll('[id^="edit"]');
+        formFields.forEach(field => {
+            field.dataset.initialValue = field.value;
+        });
+}
+
+
+
+
+
+function updateProperty(propertyId) {
+    event.preventDefault();
+
+    // Gather the updated information from the form
+    const updatedCategory = document.getElementById(`editCategory${propertyId}`).value;
+    const updatedHomeType = document.getElementById(`editHomeType${propertyId}`).value;
+    const updatedAddress = document.getElementById(`editAddress${propertyId}`).value;
+    const updatedDate = document.getElementById(`editDate${propertyId}`).value;
+    const updatedPrice = document.getElementById(`editPrice${propertyId}`).value;
+    const updatedFloor = document.getElementById(`editFloor${propertyId}`).value;
+    const updatedBedroom = document.getElementById(`editBedroom${propertyId}`).value;
+    const updatedBathroom = document.getElementById(`editBathroom${propertyId}`).value;
+    const updatedContactNumber = document.getElementById(`editContactNumber${propertyId}`).value;
+    const updatedDescription = document.getElementById(`editDescription${propertyId}`).value;
+    const updatedReview = document.getElementById(`editReview${propertyId}`).value;
+    const updatedPicture = document.getElementById(`editPicture${propertyId}`).files[0];
+    const updatedUserEmail = document.getElementById(`editUserEmail${propertyId}`).value;
+
+
+    // Update the apiUrl variable to your specific endpoint for updating properties
+    const apiUrl = `https://localhost:7195/api/DetailsCard/UpdateDetails?id=${propertyId}`;
+
+
+
+    // const updatedData={
+    //   category: updatedCategory,
+    //   homeType: updatedHomeType,
+    //   address: updatedAddress,
+    //   date: updatedDate,
+    //   price: updatedPrice,
+    //   floor: updatedFloor,
+    //   bedroom: updatedBedroom,
+    //   bathroom: updatedBathroom,
+    //   contactNumber: updatedContactNumber,
+    //   description: updatedDescription,
+    //   review: updatedReview,
+    //   image: updatedPicture,
+    //   userEmail: updatedUserEmail
+
+    // };
+
+
+    // Create FormData object
+    const formData = new FormData();
+    formData.append('category', updatedCategory);
+    formData.append('homeType', updatedHomeType);
+    formData.append('address', updatedAddress);
+    formData.append('date', updatedDate);
+    formData.append('price', updatedPrice);
+    formData.append('floor', updatedFloor);
+    formData.append('bedroom', updatedBedroom);
+    formData.append('bathroom', updatedBathroom);
+    formData.append('contactNumber', updatedContactNumber);
+    formData.append('description', updatedDescription);
+    formData.append('review', updatedReview);
+    formData.append('image', updatedPicture);
+    formData.append('userEmail', updatedUserEmail);
+
+    // Append the image field only if a new image is selected
+    // if (updatedPicture) {
+    //     formData.append('image', updatedPicture);
+    // }
+
+    // console.log('Updated Data:', updatedData);
+    // console.log('API URL:', apiUrl);
+
+    fetch(apiUrl, {
+        method: 'PUT', // Use PUT method for updates
+        body: formData,
+        // headers: {
+        //     'Content-Type': 'multipart/form-data',
+        //     // 'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify(updatedData),
+    })
+    .then(response => {
+      console.log('Server Response:', response);
+        if (response.ok) {
+            alert('Property Updated successfully');
+            // Refresh the displayed properties
+            fetchPropertyData();
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    })
+    .catch(error => {
+        alert('Error updating property. Please try again!!!');
+        console.error('Error:', error);
+    });
+
+      
+
+
+
+}
+
+
+function cancelEdit(propertyId) {
+    event.preventDefault();
+    // Hide the edit form
+    const editForm = document.getElementById(`editForm${propertyId}`);
+    if (editForm) {
+        editForm.style.display = 'none';
+
+        // Reset the form fields to their initial values
+        const formFields = editForm.querySelectorAll('[id^="edit"]');
+        formFields.forEach(field => {
+            field.value = field.dataset.initialValue;
+        });
+    }
+}
+
+
+//This is for delete
+
+function deleteProperty(propertyId) {
+    const isConfirmed = confirm('Are you sure you want to delete this property?');
+    if (!isConfirmed) {
+        return;
+    }
+
+    // Existing delete code
+    const apiUrl = `https://localhost:7195/api/DetailsCard/DeleteDetails?id=${propertyId}`;
+    // ... (rest of the code)
+    fetch(apiUrl, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Property Deleted successfully');
+            // Refresh the displayed properties
+            fetchPropertyData();
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    })
+    .catch(error => {
+        alert('Error deleting property. Please try again!!!');
+        console.error('Error:', error);
+    });
+}
+
+
+
+
+//For Booked Property
+
+// // Function to create and append a new element with text content
+
+function createElementWithText(tag, text) {
+    var element = document.createElement(tag);
+    element.appendChild(document.createTextNode(text));
+    return element;
+}
+
+
+//Function to create a card element
+function createCard(tenant, onConfirmCancelClick) {
+    var card = document.createElement('div');
+    card.classList.add('card');
+    card.style.marginBottom = '20px';
+    card.style.width = '65%';
+    card.style.textAlign = 'center';
+    card.style.border = 'none';
+
+    var cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+    cardBody.style.marginLeft = '50%';
+    cardBody.style.border = '1px solid #ddd';
+    cardBody.style.boxShadow = '4px 6px 8px gray';
+
+    var localEmail = localStorage.getItem('userEmail');
+    var title = createElementWithText('h6', 'Post No:  ' + tenant.postId);
+    var email = createElementWithText('h6', 'Teenant Email by booked:  ' + tenant.teenantEmail);
+    var email2 = createElementWithText('h6', 'Owner Email:  ' + tenant.ownerEmail);
+
+    cardBody.appendChild(title);
+    cardBody.appendChild(email);
+    cardBody.appendChild(email2);
+
+    card.appendChild(cardBody);
+
+    // Create 'Confirm' button
+   
+    var confirmButton = document.createElement('button');
+    confirmButton.style.margin = '10px';
+    confirmButton.className = 'btn btn-primary';
+    confirmButton.textContent = 'Confirm';
+
+    // Check if confirmation is already done for this owner and property
+    var confirmationStatus = localStorage.getItem(`confirmation_${tenant.postId}_${tenant.ownerEmail}_${tenant.teenantEmail}`);
+    if (confirmationStatus === 'confirmed') {
+        confirmButton.disabled = true; // Disable the button if already confirmed
+    }
+
+    confirmButton.onclick = function () {
+        // Check confirmation status before handling the click event
+        if (confirmationStatus !== 'confirmed') {
+            // Handle the Confirm button click event
+            onConfirmCancelClick('Confirmed', tenant.postId, tenant);
+            // Save the confirmation status in localStorage
+            localStorage.setItem(`confirmation_${tenant.postId}_${tenant.ownerEmail}_${tenant.teenantEmail}`, 'confirmed');
+            // Disable the confirmButton after confirmation
+            confirmButton.disabled = true;
+        }
+    };
+
+    // Create 'Cancel' button
+    var cancelButton = document.createElement('button');
+    cancelButton.className = 'btn btn-danger';
+    cancelButton.textContent = 'Cancel';
+    cancelButton.onclick = function () {
+        // Handle the Cancel button click event
+        onConfirmCancelClick('Cancelled', tenant.postId, tenant);
+        // Set confirmButton to be always active even after cancelButton is clicked
+         confirmButton.disabled = false;
+        // Save the confirmation status in localStorage
+        localStorage.setItem(`confirmation_${tenant.postId}`, 'confirmed');
+       
+    };
+
+    cardBody.appendChild(confirmButton);
+    cardBody.appendChild(cancelButton);
+
+    card.appendChild(cardBody);
+
+    return card;
+}
+
+
+
+// Function to send a POST request to the ConfirmCancelMsg API
+
+function sendPostRequest(status, postId, tenant) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://localhost:7195/api/ConfirmCancelMsg/PostConfirmCancelMsg', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    var data = {
+        postNo: tenant.postId,
+        teenantMail: tenant.teenantEmail,
+        ownerMail: tenant.ownerEmail,
+        confirmMsg: status === 'Confirmed' ? 'You are Confirmed for this rent' : '', 
+        deleteMsg: status === 'Cancelled' ? 'Sorry!! You are Cancelled for this rent' : '' 
+    };
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('Message posted successfully');
+            localStorage.setItem(`confirmation_${postId}`, 'confirmed'); // Store confirmation status
+        } else {
+            console.error('Error posting message:', xhr.statusText);
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error('Network error while posting message.');
+    };
+
+    xhr.send(JSON.stringify(data));
+}
+
+
+
+
+function loadBookedProperties() {
+    var xhr = new XMLHttpRequest();
+    var localEmail = localStorage.getItem('userEmail');
+
+    xhr.open('GET', 'https://localhost:7195/api/TeenantBooked2/GetTeenantBooked2', true);
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('Message posted successfully');
+            var data = JSON.parse(xhr.responseText);
+            var bookedPropertyContent = document.getElementById('bookedPropertyContent');
+
+            // Clear existing content
+            bookedPropertyContent.innerHTML = '';
+
+            // Check if there are booked properties
+            if (data.length > 0) {
+                // Filter properties based on the logged-in user's email
+                var userBookedProperties = data.filter(function (tenant) {
+                    return tenant.ownerEmail === localEmail;
+                });
+
+                // Iterate through the booked properties and append to HTML
+                userBookedProperties.forEach(function (tenant) {
+                    var card = createCard(tenant, function (status, postId, tenant) {
+                        // Handle the confirmation or cancellation message
+                        sendPostRequest(status, postId, tenant);
+                    });
+                    bookedPropertyContent.appendChild(card);
+                });
+
+                // Show the content
+                bookedPropertyContent.style.display = 'block';
+            } else {
+                // No booked properties, you can display a message or handle as needed
+                bookedPropertyContent.innerHTML = '<p>No properties booked by tenants.</p>';
+                bookedPropertyContent.style.display = 'block';
+            }
+        } else {
+            console.error('Error posting message:', xhr.statusText);
+            console.error('Response:', xhr.responseText); // Log the response for further inspection
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error('Network error while fetching booked properties.');
+    };
+
+    xhr.send();
+}
+
+// Call the function when the page is ready
+document.addEventListener('DOMContentLoaded', function () {
+    loadBookedProperties(); // You can choose to load on page load or not
+});
+
+
+
+
+
+
+
+
+
+</script>
+
+
+    <script src="Assests/js/bootstrap.bundle.js"></script>
+    <script src="Assests/js/main.js"></script>
+</body>
+</html>
